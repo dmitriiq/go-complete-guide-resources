@@ -26,6 +26,14 @@ func main() {
 		fmt.Scan(&depositAmount)
 		accountBalance += depositAmount // accountBalance = accountBalance + depositAmount
 		fmt.Println("Balance updated! New amount:", accountBalance)
+	} else if choice == 3 {
+		fmt.Print("Withdraw amount: ")
+		var amount float64
+		fmt.Scan(&amount)
+		accountBalance -= amount
+		fmt.Println("Money's withdroned, you balance: ", accountBalance)
+	} else {
+		fmt.Println("Wrong input")
 	}
 
 	fmt.Println("Your choice:", choice)

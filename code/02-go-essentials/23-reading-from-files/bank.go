@@ -6,10 +6,14 @@ import (
 	"strconv"
 )
 
-const accountBalanceFile = "balance.txt"
+const accountBalanceFile = "balance.1txt"
 
 func getBalanceFromFile() float64 {
-	data, _ := os.ReadFile(accountBalanceFile)
+	data, err := os.ReadFile(accountBalanceFile)
+	if err != nil {
+		panic(err)
+	}
+
 	balanceText := string(data)
 	balance, _ := strconv.ParseFloat(balanceText, 64)
 	return balance

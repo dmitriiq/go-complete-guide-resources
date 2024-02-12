@@ -7,20 +7,28 @@ func main() {
 	var expenses float64
 	var taxRate float64
 
-	fmt.Print("Revenue: ")
-	fmt.Scan(&revenue)
+	revenue = getUserInpu("Revenue: ")
 
-	fmt.Print("Expenses: ")
-	fmt.Scan(&expenses)
+	expenses = getUserInpu("Expenses: ")
 
-	fmt.Print("Tax Rate: ")
-	fmt.Scan(&taxRate)
+	taxRate = getUserInpu("Tax Rate: ")
 
-	ebt := revenue - expenses
-	profit := ebt * (1 - taxRate/100)
-	ratio := ebt / profit
+	ebt, profit, ratio := calc(revenue, expenses, taxRate)
 
 	fmt.Println(ebt)
 	fmt.Println(profit)
 	fmt.Println(ratio)
+}
+
+func calc(revenue, expenses, taxRate float64) (ebt, profit, ratio float64) {
+	ebt = revenue - expenses
+	profit = ebt * (1 - taxRate/100)
+	ratio = ebt / profit
+	return
+}
+
+func getUserInpu(text string) (value float64) {
+	fmt.Print("Tax Rate: ")
+	fmt.Scan(&value)
+	return
 }
