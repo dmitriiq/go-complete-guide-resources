@@ -5,7 +5,7 @@ import "fmt"
 func main() {
 	numbers := []int{1, 2, 3}
 
-	transformed := transformNumbers(&numbers, ???)
+	transformed := transformNumbers(&numbers, func(n int) int { return n * n })
 
 	fmt.Println(transformed)
 }
