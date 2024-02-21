@@ -5,22 +5,31 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+
+	"example.com/price-calculator/filemanager"
 )
 
 type Tax struct {
-	InputPrices []float64
-	TaxRate     float64
+	InputPrices      []float64 `json:"input prices"`
+	TaxRate          float64
+	fm               filemanager.FileManager `json:"-"`
+	TaxIncludePrices map[string]string       `json:"tax included prices"`
 }
 
 func (tax *Tax) Process() {
 	tax.loadData()
-	result := make(map[string]string)
+	tax.TaxIncludePrices = make(map[string]string)
 
 	for _, price := range tax.InputPrices {
-		result[fmt.Sprintf("%.2f", price)] = fmt.Sprintf("%.2f", price*(1+tax.TaxRate))
+		tax.TaxIncludePrices[fmt.Sprintf("%.2f", price)] = fmt.Sprintf("%.2f", price*(1+tax.TaxRate))
 	}
 
-	fmt.Println(result)
+	fmt.Println(tax.TaxIncludePrices)
+	tax.fm = filemanager.FileManager{
+		OutputFilePath: fmt.Sprintf("out_%.0f.json", tax.TaxRate*99),
+	}
+
+	tax.fm.WriteResult(tax)
 }
 
 func (tax *Tax) loadData() {
